@@ -9,7 +9,7 @@ const Navbar = () => {
 
     const handleLogout = async () => {
         try {
-            await axios.get("http://localhost:5000/api/user/logout", { withCredentials: true });
+            await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/user/logout`, { withCredentials: true });
             toast.success("Logged out successfully");
             navigate("/");
         } catch (error) {

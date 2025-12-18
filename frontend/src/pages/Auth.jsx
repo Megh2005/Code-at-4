@@ -18,7 +18,7 @@ const Auth = () => {
         const checkAuth = async () => {
             try {
                 // Check if user is already logged in by trying to fetch profile
-                await axios.get("http://localhost:5000/api/user/profile", { withCredentials: true });
+                await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/user/profile`, { withCredentials: true });
                 setIsAuthenticated(true);
             } catch (error) {
                 setIsAuthenticated(false);
@@ -36,8 +36,8 @@ const Auth = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const url = isLogin
-            ? "http://localhost:5000/api/auth/login"
-            : "http://localhost:5000/api/auth/signup";
+            ? `${import.meta.env.VITE_API_BASE_URL}/api/auth/login`
+            : `${import.meta.env.VITE_API_BASE_URL}/api/auth/signup`;
 
         try {
             const { data } = await axios.post(url, formData, { withCredentials: true }); // Ensure cookies are set

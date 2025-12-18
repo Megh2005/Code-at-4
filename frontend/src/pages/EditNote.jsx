@@ -15,7 +15,7 @@ const EditNote = () => {
             try {
                 // Since we don't have a specific get-one endpoint, we fetch all and find the one. 
                 // ideally backend should have get/:id, but this works for now given the current user constraints.
-                const { data } = await axios.get("http://localhost:5000/api/message/getall", {
+                const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/message/getall`, {
                     withCredentials: true,
                 });
                 const foundNote = data.messages.find(msg => msg._id === id);
@@ -38,7 +38,7 @@ const EditNote = () => {
     const handleUpdate = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`http://localhost:5000/api/message/update/${id}`, { message: note }, { withCredentials: true });
+            await axios.put(`${import.meta.env.VITE_API_BASE_URL}/api/message/update/${id}`, { message: note }, { withCredentials: true });
             toast.success("Note updated successfully");
             navigate("/notes");
         } catch (error) {

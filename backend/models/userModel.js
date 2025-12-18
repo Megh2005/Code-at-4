@@ -2,36 +2,39 @@ import mongoose from "mongoose";
 import validator from "validator";
 import bcrypt from "bcryptjs";
 
-const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    minLength: 5,
-    maxLength: 50,
-  },
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      minLength: 5,
+      maxLength: 50,
+    },
 
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    validate(value) {
-      if (!validator.isEmail(value)) {
-        console.log("Invalid email");
-      }
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          console.log("Invalid email");
+        }
+      },
+    },
+
+    password: {
+      type: String,
+      required: true,
+      minLength: 6,
+      validate(value) {
+        if (!validator.isStrongPassword(value)) {
+          console.log("Invalid password");
+        }
+      },
     },
   },
-
-  password: {
-    type: String,
-    required: true,
-    minLength: 6,
-    validate(value) {
-      if (!validator.isStrongPassword(value)) {
-        console.log("Invalid password");
-      }
-    },
-  },
-});
+  { timestamps: true }
+);
 
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {

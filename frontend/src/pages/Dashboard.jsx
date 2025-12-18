@@ -12,7 +12,7 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const { data } = await axios.get("http://localhost:5000/api/user/profile", { withCredentials: true });
+                const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/user/profile`, { withCredentials: true });
                 setUser(data.user);
             } catch (error) {
                 console.log(error);

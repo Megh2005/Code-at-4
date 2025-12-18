@@ -12,10 +12,11 @@ const CreateNote = () => {
     const handleNoteSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post("http://localhost:5000/api/message/send", {
+            await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/message/send`, {
                 message: note,
-            }, { withCredentials: true });
-            toast.success("Note created successfully!");
+            }, {
+                withCredentials: true,
+            }); toast.success("Note created successfully!");
             setNote("");
             navigate("/notes"); // Redirect to notes list after creation
         } catch (error) {

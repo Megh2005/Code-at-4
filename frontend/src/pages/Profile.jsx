@@ -13,7 +13,7 @@ const Profile = () => {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const { data } = await axios.get("http://localhost:5000/api/user/profile", { withCredentials: true });
+                const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/user/profile`, { withCredentials: true });
                 setUser(data.user);
                 setEditData({ name: data.user.name, email: data.user.email });
             } catch (error) {
@@ -33,7 +33,7 @@ const Profile = () => {
     const handleUpdateProfile = async (e) => {
         e.preventDefault();
         try {
-            await axios.put("http://localhost:5000/api/user/profile", {
+            await axios.put(`${import.meta.env.VITE_API_BASE_URL}/api/user/profile`, {
                 name: editData.name,
                 email: editData.email
             }, { withCredentials: true });
@@ -49,7 +49,7 @@ const Profile = () => {
     const handleDeleteAccount = async () => {
         if (!window.confirm("Are you sure? This cannot be undone.")) return;
         try {
-            await axios.delete("http://localhost:5000/api/user/profile", { withCredentials: true });
+            await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/api/user/profile`, { withCredentials: true });
             toast.success("Account deleted");
             navigate("/");
         } catch (error) {

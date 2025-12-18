@@ -11,7 +11,7 @@ const Notes = () => {
 
     const fetchNotes = async () => {
         try {
-            const { data } = await axios.get("http://localhost:5000/api/message/getall", {
+            const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/message/getall`, {
                 withCredentials: true,
             });
             setNotes(data.messages);
@@ -28,7 +28,7 @@ const Notes = () => {
     const handleDelete = async (id) => {
         if (!window.confirm("Are you sure you want to delete this note?")) return;
         try {
-            await axios.delete(`http://localhost:5000/api/message/delete/${id}`, { withCredentials: true });
+            await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/api/message/delete/${id}`, { withCredentials: true });
             toast.success("Note deleted");
             fetchNotes(); // Refresh list
         } catch (error) {
